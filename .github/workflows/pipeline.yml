@@ -30,7 +30,7 @@ jobs:
       - name: Trigger deployment
         run: curl https://api.render.com/deploy/srv-${{secrets.RENDER_SERVICE_ID}}?key=${{secrets.RENDER_API_KEY}}
   tag_release:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     needs:
