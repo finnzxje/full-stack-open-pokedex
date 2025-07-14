@@ -36,6 +36,7 @@ jobs:
     needs:
       - simple_deployment_pipeline
       - deploy_to_render
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@v1.73.0
