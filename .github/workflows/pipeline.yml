@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize]
 jobs:
   simple_deployment_pipeline:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,3 +22,22 @@ jobs:
         run: npm run build
       - name: test
         run: npm run test
+  deploy_to_render:
+    runs-on: ubuntu-latest
+    environment: RENDER
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - name: Trigger deployment
+        run: curl https://api.render.com/deploy/srv-${{secrets.RENDER_SERVICE_ID}}?key=${{secrets.RENDER_API_KEY}}
+  tag_release:
+    runs-on: ubuntu-lastest
+    permissions:
+      contents: write
+    needs:
+      - simple_deployment_pipeline
+      - deploy_to_render
+    steps:
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1.73.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token   
