@@ -3,7 +3,6 @@ module.exports = {
     browser: true,
     es6: true,
     'jest/globals': true,
-    node: true,
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {
@@ -23,7 +22,7 @@ module.exports = {
     'no-trailing-spaces': 'error',
     'object-curly-spacing': ['error', 'always'],
     'arrow-spacing': ['error', { before: true, after: true }],
-    // 'no-console': 'error',
+    'no-console': 'error',
     'react/prop-types': 0,
   },
 }
