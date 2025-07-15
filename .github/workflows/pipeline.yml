@@ -48,6 +48,7 @@ jobs:
           DEFAULT_BUMP: patch
   notify_discord:
     runs-on: ubuntu-latest
+    environment: RENDER
     steps:
       - uses: actions/checkout@v4
       - name: Test Success
