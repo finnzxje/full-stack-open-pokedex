@@ -59,7 +59,7 @@ jobs:
           title: successfully deployed pokedex
       - name: Test fail
         uses: rjstone/discord-webhook-notify@v2
-        if: ${{ failures() }}
+        if: ${{ failure() }}
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           severity: error
