@@ -49,6 +49,7 @@ jobs:
   notify_discord:
     runs-on: ubuntu-latest
     environment: RENDER
+    if: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v4
       - name: Test Success
