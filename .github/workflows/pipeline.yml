@@ -46,3 +46,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token   
           DEFAULT_BUMP: patch
+  notify_discord:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v2
+        if: ${{ success() }}
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: info
+          title: successfully deployed pokedex
+      - name: Test fail
+        uses: rjstone/discord-webhook-notify@v2
+        if: ${{ failures() }}
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: error
+          color: '#ff0000'
+          title: build failed
+          description: "This commit ***BROKE*** the build."
+          username: Finn
